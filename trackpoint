@@ -30,6 +30,3 @@ case $? in
   -1)
     echo "An unexpected error has occurred.";;
 esac
-
-# echo -n 132 > $x/sensitivity	# was 200, 132
-# echo -n 97 > $x/speed		# was 97, 158
