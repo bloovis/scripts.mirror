@@ -14,7 +14,7 @@ case $? in
     echo "Setting sensitivity to $VALUE"
     echo -n $VALUE > $x/sensitivity;;
   1)
-    echo "No value selected.";;
+    echo "No sensitivity value selected.";;
   -1)
     echo "An unexpected error has occurred.";;
 esac
@@ -26,7 +26,19 @@ case $? in
     echo "Setting speed to $VALUE"
     echo -n $VALUE > $x/speed;;
   1)
-    echo "No value selected.";;
+    echo "No speed value selected.";;
+  -1)
+    echo "An unexpected error has occurred.";;
+esac
+
+drift_time=`cat $x/drift_time`
+VALUE=`zenity --scale --text="Trackpoint drift time (in tenths of a second)" --value=$drift_time --max-value=255`
+case $? in
+  0)
+    echo "Setting drift_time to $VALUE"
+    echo -n $VALUE > $x/drift_time;;
+  1)
+    echo "No drift time value selected.";;
   -1)
     echo "An unexpected error has occurred.";;
 esac
