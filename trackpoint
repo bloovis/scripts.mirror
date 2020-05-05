@@ -42,3 +42,31 @@ case $? in
   -1)
     echo "An unexpected error has occurred.";;
 esac
+
+# Information on enabling/disabling acceleration here:
+# https://www.reddit.com/r/linux_gaming/comments/535ng5/how_to_disable_mouse_acceleration_with_libinput/
+
+id=`xinput list | sed -n -e 's/.*TrackPoint.*id=\([123456789]\+\).*/\1/p'`
+if [ -z "$id" ] ; then
+  zenity --error --no-wrap --text="Unable to determine TrackPoint device ID using xinput"
+  exit 1
+fi
+set `xinput --list-props $id | sed -n -e 's/.*libinput Accel Profile Enabled (\(.*\)):.*\([01]\),.*\([0-1]\).*/\1 \2 \3/p'`
+prop=$1
+adaptive=$2
+flat=$3
+if [ -z "$prop" ] ; then
+  zenity --error --no-wrap --text="Unable to determine TrackPoint acceleration profile property using xinput"
+  exit 1
+fi
+echo "Device ID: $id"
+echo "Property ID: $prop"
+echo "Adaptive: $adaptive"
+echo "Flat: $flat"
+if zenity --question --text="Enable acceleration?" ; then
+  xinput --set-prop $id $prop 1 0
+  echo "Enabling acceleration"
+else
+  xinput --set-prop $id $prop 0 1
+  echo "Disabling acceleration"
+fi
