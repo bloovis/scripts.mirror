@@ -2,4 +2,8 @@
 
 Various simple scripts for Linux:
 
-* `trackpoint` : set sensitivity and speed of ThinkPad TrackPoint
+* `trackpoint` : set sensitivity, speed, drift time, and acceleration of ThinkPad TrackPoint
+* `gateway` : network gateway IP address
+* `ipaddr` : print IP address
+* `externalip` : print external IP address (as seen from outside the NAT router)
+* `diskusers` : print summary every ten seconds of processes using disk

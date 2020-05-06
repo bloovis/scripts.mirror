@@ -1,0 +1,2 @@
+#!/bin/sh
+ip -o route get 8.8.8.8 | sed -e 's/^.* src \([^ ]*\) .*$/\1/'

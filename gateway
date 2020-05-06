@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ip route | sed -n -e "s/default via \([0-9.]\+\).*/\1/p"

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Print a summary every ten seconds of who is using the disk.
+sudo iotop -o -b -d 10
