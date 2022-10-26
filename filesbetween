@@ -1,0 +1,11 @@
+#!/bin/sh
+# Find files whose modification time is between two dates.
+# Dates can be in the format YYYY-MM-DD.
+
+if [ $# -ne 2 ] ; then
+  echo "usage: filesbetween date1 date1"
+  echo "Finds files in the current directory and below that have modification times"
+  echo "between date1 and date2.  Dates are in the format YYYY-MM-DD."
+  exit 1
+fi
+find . -type f -newermt $1 ! -newerct $2 -ls

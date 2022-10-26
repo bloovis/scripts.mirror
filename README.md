@@ -7,3 +7,4 @@ Various simple scripts for Linux:
 * `ipaddr` : print IP address
 * `externalip` : print external IP address (as seen from outside the NAT router)
 * `diskusers` : print summary every ten seconds of processes using disk
+* `filesbetween`: find files with modification times in a date range
