@@ -5,7 +5,7 @@ if [ `id -u` != "0" ] ; then
   sudo $0
   exit $?
 fi
-x=`find /sys/devices/platform/i8042 -name name | xargs grep -Fl TrackPoint | sed 's/\/input\/input[0-9]*\/name$//'`
+x=`find /sys/devices -name name | xargs grep -Fl TrackPoint | sed 's/\/input\/input[0-9]*\/name$//'`
 
 sensitivity=`cat $x/sensitivity`
 VALUE=`zenity --scale --text="Trackpoint sensitivity" --value=$sensitivity --max-value=255`
