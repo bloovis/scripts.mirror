@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+
+# Changes the comments for an entire album of ogg vorbis tracks.
+# Input is an album description text file.  Example:
+#   genre=Classical
+#   artist=Prokofiev
+#   album=Violin Sonata No. 1 in F minor / Gidon Kremer & Martha Argerich
+#   date=1992
+#   track_01.ogg=1. Andante assai
+#   track_02.ogg=2. Allegro brusco
+#   track_03.ogg=3. Andante
+#   track_04.ogg=4. Allegrissimo - Andante assai, come prima
+
+if ARGV.length != 1
+  puts "usage: oggalbum albumfile"
+  exit 1
+end
+filename = ARGV[0]
+
+tags = {}
+track = 1
+
+File.open(filename) do |f|
+  f.each do |line|
+    line.chomp!
+#    puts "line: #{line}"
+    if line =~ /^(.+\.ogg)=(.+)$/
+      oggfile = $1
+      title = $2
+      tags['TITLE'] = title
+      tags['TRACKNUMBER'] = sprintf("%02d", track)
+      puts "Changing comments for #{oggfile}"
+      IO.popen(["vorbiscomment", "-w", oggfile], "w") do |f|
+#	f = STDOUT
+	tags.each do |tag, value|
+	  f.puts "#{tag}=#{value}"
+	end
+      end
+      track += 1
+    elsif line =~ /^(\w+)=(.+)$/
+      tag = $1.upcase
+      value = $2
+      tags[tag] = value
+      if tag == 'TRACKNUMBER'
+	track = value.to_i
+      end
+    end
+  end
+end

@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+
+# Produces an album description file from a set of ogg vorbis files.
+# Example output:
+#   GENRE=Classical
+#   COMPOSER=Prokofiev
+#   ALBUM=Violin Sonata No. 1 in F minor / Gidon Kremer & Martha Argerich
+#   DATE=1992
+#   track_01.ogg=1. Andante assai
+#   track_02.ogg=2. Allegro brusco
+#   track_03.ogg=3. Andante
+#   track_04.ogg=4. Allegrissimo - Andante assai, come prima
+
+if ARGV.length < 1
+  puts "usage: oggmakealbum oggfile..."
+  exit 1
+end
+
+tags = {}
+trackno = 0
+
+ARGV.each do |filename|
+  newtags = {}
+  IO.popen(["vorbiscomment", filename]) do |f|
+    f.each do |line|
+      line.chomp!
+      if line =~ /^(\w+)=(.+)$/
+	tag = $1.upcase
+	value = $2
+	newtags[tag] = value
+      end
+    end
+  end
+  title = nil
+  newtags.each do |tag, value|
+    if tag == 'TITLE'
+      title = value
+    elsif tag == 'TRACKNUMBER'
+      newtrackno = value.to_i
+      if newtrackno != trackno + 1
+	puts "Warning: track number for #{filename} was #{newtrackno}, expected #{trackno + 1}"
+      end
+      trackno = newtrackno
+    elsif value != tags[tag]
+      puts "#{tag}=#{value}"
+    end
+  end
+  puts "#{filename}=#{title}"
+  tags = newtags
+  tags.delete('TITLE')
+  tags.delete('TRACKNUMBER')
+end
