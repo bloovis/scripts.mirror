@@ -49,10 +49,10 @@ ogg/03 - No.1 G Minor Op.25 -III- Andante con moto.ogg=III. Andante
 ogg/04 - No.1 G Minor Op.25 -IV- Rondo alla Zingarese. Presto.ogg=IV. Rondo alla Zingarese
 GROUPING=Piano Quartet No. 3 in c minor
 SUBTITLE=Opus 60
-ogg/05 - No.3 C Minor Op.60 -I- Allegro non troppo.ogg=05 - No.3 C Minor Op.60 -I- Allegro non troppo
-ogg/06 - No.3 C Minor Op.60 -II- Scherzo. Allegro.ogg=06 - No.3 C Minor Op.60 -II- Scherzo. Allegro
-ogg/07 - No.3 C Minor Op.60 -III- Andante.ogg=07 - No.3 C Minor Op.60 -III- Andante
-ogg/08 - No.3 C Minor Op.60 -IV- Finale. Allegro comodo.ogg=08 - No.3 C Minor Op.60 -IV- Finale. Allegro comodo
+ogg/05 - No.3 C Minor Op.60 -I- Allegro non troppo.ogg=I. Allegro non troppo
+ogg/06 - No.3 C Minor Op.60 -II- Scherzo. Allegro.ogg=II. Scherzo. Allegro
+ogg/07 - No.3 C Minor Op.60 -III- Andante.ogg=III. Andante
+ogg/08 - No.3 C Minor Op.60 -IV- Finale. Allegro comodo.ogg=IV. Finale. Allegro comodo
 ```
 
 There are two types of lines in the album description:
