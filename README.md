@@ -10,6 +10,7 @@ Various simple scripts for Linux:
 * `filesbetween`: find files with modification times in a date range
 * `oggalbum`: Tag a set of ogg files using an album description file
 * `oggmakealbum`: Create an album description file from a set of ogg files
+* `redirect.cgi`: CGI script to allow censored URLs to be posted on Reddit and Twitter
 
 ## Ogg scripts
 
