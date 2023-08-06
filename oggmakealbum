@@ -4,6 +4,7 @@
 # Example output:
 #   GENRE=Classical
 #   COMPOSER=Prokofiev
+#   ARTIST=Kremer & Argerich
 #   ALBUM=Violin Sonata No. 1 in F minor / Gidon Kremer & Martha Argerich
 #   DATE=1992
 #   track_01.ogg=1. Andante assai

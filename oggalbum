@@ -2,10 +2,11 @@
 
 # Changes the comments for an entire album of ogg vorbis tracks.
 # Input is an album description text file.  Example:
-#   genre=Classical
-#   artist=Prokofiev
-#   album=Violin Sonata No. 1 in F minor / Gidon Kremer & Martha Argerich
-#   date=1992
+#   GENRE=Classical
+#   COMPOSER=Prokofiev
+#   ARTIST=Kremer & Argerich
+#   ALBUM=Violin Sonata No. 1 in F minor / Gidon Kremer & Martha Argerich
+#   DATE=1992
 #   track_01.ogg=1. Andante assai
 #   track_02.ogg=2. Allegro brusco
 #   track_03.ogg=3. Andante
