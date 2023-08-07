@@ -25,7 +25,7 @@ ARGV.each do |filename|
   IO.popen(["vorbiscomment", filename]) do |f|
     f.each do |line|
       line.chomp!
-      if line =~ /^(\w+)=(.+)$/
+      if line =~ /^(\w+)=(.*)$/
 	tag = $1.upcase
 	value = $2
 	newtags[tag] = value
