@@ -36,14 +36,14 @@ app for Android:
 Here is a sample album description for a CD that has two works:
 
 ```
-GENRE=Classical
-DATE=1988
 ALBUM=Piano Quartets CD 1 - Domus
+DATE=1988
 ARTIST=Domus
-SUBTITLE=Opus 25
-COMPOSER=Johannes Brahms
+GENRE=Classical
 TRACKTOTAL=8
+COMPOSER=Johannes Brahms
 GROUPING=Piano Quartet No. 1 in g minor
+SUBTITLE=Opus 25
 01 - No.1 G Minor Op.25 -I- Allegro.ogg=I. Allegro
 02 - No.1 G Minor Op.25 -II- Intermezzo. Allegro (ma non troppo).ogg=II. Intermezzo
 03 - No.1 G Minor Op.25 -III- Andante con moto.ogg=III. Andante
