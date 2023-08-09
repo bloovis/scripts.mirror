@@ -14,7 +14,7 @@ Various simple scripts for Linux:
 
 ## Ogg scripts
 
-I wrote the two Ruby scripts, `oggalbum` and `oggmakealbum`, to make it easier
+I wrote two Ruby scripts, `oggalbum` and `oggmakealbum`, to make it easier
 to edit the comment tags in ogg audio files.  I dislike using GUI tools for
 this purpose, so my scripts use (or create) album description files, which
 are plain text and easy to edit.  My scripts also support the tagging I needed
@@ -66,3 +66,10 @@ tags are applied to the current track.  You only need to specify tags that
 are going to change for the following tracks.  We can see that in the example
 above, where there are two works, and the GROUPING and SUBTITLE tags are changed
 just before the list of tracks for the second work.
+
+There is a third script here, called `cdmakealbum`, that generates one or more
+album description file from a CD.  It queries gnudb and MusicBrainz for the
+track information, and prints out everything it finds on both services.
+Having multiple album descriptions lets you select the one that looks best to you.
+You will almost certainly want to edit the album description, since
+these services don't always return accurate or complete results.
