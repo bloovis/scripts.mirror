@@ -60,9 +60,9 @@ def get_gnudb(device, filename_fmt)
     puts "DATE=#{f.year}"
   else
     if f.ext_infos =~ /YEAR:\s*(\d+)/
-      puts "Date=#{$1}"
+      puts "DATE=#{$1}"
     else
-      puts "Date=0000"
+      puts "DATE=0000"
     end
   end
 
