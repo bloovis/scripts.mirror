@@ -19,14 +19,16 @@ require 'discid'
 require 'freedb'
 require 'xml/libxml'
 
-def make_filename(filename_fmt, album, track, trackno, artist, composer)
-  trackstr = sprintf("%02d", trackno)
+def make_filename(filename_fmt, ntracks, album, track, trackno, artist, composer)
+  trackno_fmt = '%0' + ntracks.to_s.length.to_s + 'd'
+  trackstr = sprintf(trackno_fmt, trackno)
   filename_fmt.
     gsub(/%d/, album).
     gsub(/%t/, track).
     gsub(/%n/, trackstr).
     gsub(/%a/, artist).
-    gsub(/%c/, composer)
+    gsub(/%c/, composer).
+    gsub(/[:\/"]/, '-')
 end
 
 def get_gnudb(device, filename_fmt)
@@ -66,8 +68,8 @@ def get_gnudb(device, filename_fmt)
 
   trackno = 1
   f.tracks.each do |track|
-    title = track['title'].gsub(/[:\/"]/, '-')
-    filename = make_filename(filename_fmt, f.title, title, trackno, f.artist, f.artist)
+    title = track['title']
+    filename = make_filename(filename_fmt, f.tracks.size, f.title, title, trackno, f.artist, f.artist)
     puts "#{filename}=#{title}"
     trackno += 1
   end
@@ -92,6 +94,7 @@ def get_musicbrainz(device, filename_fmt)
   in_artist = false
   in_name = false
   in_disambiguation = false
+  in_cdstub = false
 
   album = ''
   composer = ''
@@ -99,6 +102,7 @@ def get_musicbrainz(device, filename_fmt)
   disambiguation = nil
   name = nil
   trackno = 1
+  ntracks = 99
 
   discid = get_discid(device)
   query = 'http://musicbrainz.org/ws/2/discid/' +
@@ -148,6 +152,8 @@ def get_musicbrainz(device, filename_fmt)
 	  end
 	when 'disambiguation'
 	  in_disambiguation = false
+	when 'cdstub'
+	  in_cdstub = false
 	end
       when XML::Reader::TYPE_ELEMENT
 	puts "start element #{node_name}" if debug
@@ -162,6 +168,13 @@ def get_musicbrainz(device, filename_fmt)
 	  if artists.length > 0
 	    puts "ARTIST=#{artists.join(', ')}"
 	    artists = []
+	  end
+	  if reader.has_attributes?
+	    reader.node.attributes.each do |attr|
+	      if attr.name == 'count'
+		ntracks = attr.value.to_i
+	      end
+	    end
 	  end
         when 'track'
 	  in_track = true
@@ -179,15 +192,17 @@ def get_musicbrainz(device, filename_fmt)
 	  in_artist = true
 	when 'disambiguation'
 	  in_disambiguation = true
+	when 'cdstub'
+	  in_cdstub = true
 	end
       when XML::Reader::TYPE_TEXT
 	value = reader.value
 	puts "text #{value}" if debug
 	if in_date && in_release_event
 	  puts "DATE=#{value}"
-	elsif in_title && (in_recording || in_track)
+	elsif in_title && (in_recording || (in_track && in_cdstub))
 	  title = value.gsub(/[:\/]/, '-')
-	  filename = make_filename(filename_fmt, album, title, trackno, artists.join(', '), composer)
+	  filename = make_filename(filename_fmt, ntracks, album, title, trackno, artists.join(', '), composer)
 	  puts "#{filename}=#{title}"
 	  trackno += 1
 	elsif in_title && ! in_tracklist && ! in_recording
@@ -214,13 +229,13 @@ XML.default_load_external_dtd = true
 # -f FilenameFormatString
 
 device = '/dev/cdrom'
-filename_fmt = '%t.ogg'
+filename_fmt = '%n-%t.ogg'
 
 opts = OptionParser.new
 opts.on("-dDEV", "--device=DEV", String,
   "CD device name (default #{device})") { |val| device = val }
 opts.on("-fARG", "--filefmt=ARG", String,
-  "Track filename format string (default #{filename_fmt})\n" +
+  "Track filename format string (default '#{filename_fmt}')\n" +
   "filefmt may contain these special sequences:\n" +
   "%d = disc title, %t = track title," +
   " %n = track number, %a = artist, %c = composer") { |val| filename_fmt = val }
