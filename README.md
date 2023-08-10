@@ -12,12 +12,16 @@ Various simple scripts for Linux:
 * `oggmakealbum`: Create an album description file from a set of ogg files
 * `redirect.cgi`: CGI script to allow censored URLs to be posted on Reddit and Twitter
 
-## Ogg scripts
+## Ogg Vorbis scripts
 
-I wrote two Ruby scripts, `oggalbum` and `oggmakealbum`, to make it easier
-to edit the comment tags in ogg audio files.  I dislike using GUI tools for
-this purpose, so my scripts use (or create) album description files, which
-are plain text and easy to edit.  My scripts also support the tagging I needed
+There are four Ruby scripts here related to tagging and ripping Ogg Vorbis files.
+
+### Tagging Ogg Vorbis files
+
+The scripts `oggalbum` and `oggmakealbum` make it easier (for me, at least)
+to edit the comment tags in Ogg Vorbis audio files.  I dislike using GUI tools for
+this purpose, so these scripts use (or create) album description files, which
+are plain text and easy to edit.  The scripts also support the tagging needed
 for classical music, which differs from pop music in these ways:
 
 * the performer and composer are not usually the same
@@ -33,7 +37,7 @@ app for Android:
 * `ARTIST`: the performer
 * `COMPOSER`: the composer
 
-Here is a sample album description for a CD that has two works:
+Here is a sample album descriptor for a CD that has two works:
 
 ```
 ALBUM=Piano Quartets CD 1 - Domus
@@ -55,7 +59,6 @@ SUBTITLE=Opus 60
 07 - No.3 C Minor Op.60 -III- Andante.ogg=III. Andante
 08 - No.3 C Minor Op.60 -IV- Finale. Allegro comodo.ogg=IV. Finale. Allegro comodo
 ```
-
 There are two types of lines in the album description:
 
 * A track descriptor in the form `filename.ogg=title`
@@ -67,9 +70,41 @@ are going to change for the following tracks.  We can see that in the example
 above, where there are two works, and the GROUPING and SUBTITLE tags are changed
 just before the list of tracks for the second work.
 
-There is a third script here, called `cdmakealbum`, that generates one or more
-album description file from a CD.  It queries gnudb and MusicBrainz for the
-track information, and prints out everything it finds on both services.
-Having multiple album descriptions lets you select the one that looks best to you.
-You will almost certainly want to edit the album description, since
-these services don't always return accurate or complete results.
+To change the tags for a set of Ogg Vorbis files, use `oggalbum <albumfile>`
+where `<albumfile>` is an album descriptor file, as shown above.
+(I typically use the filename `album.txt` for album descriptors.)
+
+To generate an album descriptor from a set of Ogg Vorbis files, use
+`oggalbum file...`.  You can use wildcard filenames, but be aware that
+that the sort order of the filenames may not be the same as the track
+order.  To prevent this problem when ripping an album, make sure that the first
+characters in the filename are the track number.  The ripping scripts
+described below can help with this.
+
+### Ripping Ogg Vorbis files
+
+Use the scripts `cdmakealbum` and `oggripalbum` to rip a CD into Ogg Vorbis files.
+
+First use `cdmakealbum` to create a first cut at an album descriptor file.
+This script reads the CD in the `/dev/cdrom` device and queries two online music
+databases (Gnudb and MusicBrainz) for album and track information.  It then
+prints the equivalent album descriptors for all the discs found in these
+databases.  This can result in multiple descriptors being printed, but this is useful
+because these databases often have incorrect or missing information, and
+you can edit the output to create a suitable album descriptor.
+
+By default, `cdmakealbum` generates track listings in which the
+filenames consists of the track number, followed by the track title,
+and terminated with `.ogg`.  This scheme ensures that the filename
+sort order will be the same as the track number sort order. Use the
+`-f` option to change the way the filename is constructed.
+You can also edit the resulting album descriptor manually
+to use any naming convention you choose, perhaps to simplify
+or shorten the filenames.
+
+Once you have a good album descriptor in a file (which I typically
+name `album.txt`), use the script `oggripalbum` to rip the CD tracks
+into a set of Ogg Vorbis files.  The tags specified in the album
+descriptor will be applied to the Ogg files.  You can check
+this by running `oggmakealbum *.ogg` after the ripping is done;
+the result should be identical with the album descriptor file.
