@@ -8,8 +8,10 @@ Various simple scripts for Linux:
 * `externalip` : print external IP address (as seen from outside the NAT router)
 * `diskusers` : print summary every ten seconds of processes using disk
 * `filesbetween`: find files with modification times in a date range
-* `oggalbum`: Tag a set of ogg files using an album description file
-* `oggmakealbum`: Create an album description file from a set of ogg files
+* `oggalbum`: Tag a set of Ogg Vorbis files using an album description file
+* `oggmakealbum`: Create an album description file from a set of Ogg Vorbis files
+* `cdmakealbum`: Create an album description file from a CD
+* `oggripalbum`: Rip a CD info a set of Ogg Vorbis files
 * `redirect.cgi`: CGI script to allow censored URLs to be posted on Reddit and Twitter
 
 ## Ogg Vorbis scripts
