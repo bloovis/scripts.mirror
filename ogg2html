@@ -1,0 +1,64 @@
+#!/usr/bin/env ruby
+
+# Produce some HTML code for playing a set of ogg files in a browser.
+
+if ARGV.length < 1
+  puts "usage: ogg2html oggfile..."
+  exit 1
+end
+
+tags = {}
+trackno = 0
+
+puts <<EOF
+<html>
+<body>
+<table>
+EOF
+
+ARGV.each do |filename|
+  tags = {}
+  IO.popen(["vorbiscomment", filename]) do |f|
+    f.each do |line|
+      line.chomp!
+      if line =~ /^(\w+)=(.*)$/
+	tag = $1.upcase
+	value = $2
+	tags[tag] = value
+      end
+    end
+  end
+
+  # Sample output of vorbiscomment:
+  # Artist=The Who
+  # Album=Tommy
+  # Date=1969
+  # Title=The Acid Queen
+  # Tracknumber=09
+  # Genre=Rock
+
+  
+  a = []
+  a << tags['TRACKNUMBER'] || ""
+  a << tags['ARTIST'] || ""
+  a << tags['ALBUM'] || ""
+  a << tags['TITLE'] || ""
+  desc = a.join(' - ')
+  puts <<EOF
+<tr>
+<td>#{desc}</td>
+<td>
+<audio controls preload="auto">
+  <source src="#{filename}" type="audio/ogg" />
+</audio>
+</td>
+</tr>
+EOF
+
+end
+
+puts <<EOF
+</table>
+</body>
+</html>
+EOF
