@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Create a random play list from a directory of ogg files
+# that can be imported into VLC.
+
+if [ -z "$1" ] ; then
+  echo "Specify an output .m3u file"
+  exit 1
+fi
+
+find . -name "*.ogg" | sed -e 's/#/%23/' | shuf >$1
+
+
