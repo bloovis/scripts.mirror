@@ -133,8 +133,8 @@ IO.foreach(albumfile) do |line|
     # Assume it's a track title.  Construct a filename by prepending
     # the track number and appending a file extension.
     if track >= $start_track && track <= $end_track
-      filename = title + ".ogg"
       title = sprintf("%02d - %s", track, line)
+      filename = title + ".ogg"
       riptrack(filename, title, track)
     end
     track += 1
