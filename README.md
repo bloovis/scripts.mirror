@@ -16,6 +16,7 @@ Various simple scripts for Linux:
 * `mdump`: hexadecimal file dumper
 * `cookies` : convert Firefox's cookies.sqlite format to Netscape cookies
 * `firefox-dpms` : disable screensaver when Firefox plays sounds/videos
+* `detab` - filter to changes tabs to spaces
 
 ## Ogg Vorbis scripts
 

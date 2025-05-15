@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+# $VERBOSE = true
+
+STDIN.each do |line|
+  line.chomp!
+
+  # Change tabs to spaces.
+  line.gsub!(/([^\t]*)(\t)/) { $1 + " " * (8 - $1.length % 8) }
+
+  # Remove trailing spaces.
+  line.gsub!(/\s+$/, '')
+
+  puts line
+end
