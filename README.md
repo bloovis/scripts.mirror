@@ -13,6 +13,7 @@ Various simple scripts for Linux:
 * `cdmakealbum`: Create an album description file from a CD
 * `oggripalbum`: Rip a CD info a set of Ogg Vorbis files
 * `redirect.cgi`: CGI script to allow censored URLs to be posted on Reddit and Twitter
+* `mdump`: hexadecimal file dumper
 
 ## Ogg Vorbis scripts
 

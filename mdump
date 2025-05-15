@@ -1,0 +1,75 @@
+#!/usr/bin/env ruby
+
+# mdump - a Ruby implementation of a long-lost hexadecimal dump program
+
+def dumpfile(fileHandle, start, length)
+   if (start != 0)
+      if (fileHandle == STDIN)
+         fileHandle.read(start)
+      else
+         fileHandle.seek(start)
+      end
+   end
+   addr = start
+   endaddr = start + length
+   prev = ''
+   dupe = false
+   while (addr != endaddr)
+      nchars = [endaddr - addr, 16].min
+      break unless string = fileHandle.read(nchars)
+      if (string == prev)
+         puts(" *") unless (dupe)
+         dupe = true
+      else
+         dupe = false
+         printf('%08x ', addr)
+         i = 0
+         string.each_byte do |c|
+            print(i == 4 || i == 12 ? '-' : i == 8 ? '  ' : ' ')
+            printf('%02x', c)
+            i += 1
+         end
+         ((16 - i) * 3 + (i < 8 ? 1 : 0)).times { putc(' ') }
+         print('  ')
+         string.each_byte do |c|
+            putc(c >= 0x20 && c < 0x7f ? c : '.')
+         end
+         puts
+      end
+      prev = string
+      addr += nchars
+   end
+end
+
+start = 0
+length = 0xffffffff
+
+filenames = []
+
+ARGV.each do |arg|
+   if arg =~ /^\+([[:xdigit:]]+),([[:xdigit:]]+)$/
+      start, length = $1.hex, $2.hex
+   elsif arg =~ /^\+([[:xdigit:]]+)$/
+      start = $1.hex
+      length = 0xffffffff
+   elsif arg =~ /^--?help$/
+      puts("usage: mdump [+start[,length]] [filenames...]")
+      puts("dumps files in hexadecimal, with optional starting offset and length")
+      puts("start and length are in hexadecimal")
+      puts("stdin is dumped if there are no filenames")
+      exit(1)
+   else
+      filenames.push(arg)
+   end
+end
+
+if filenames.empty? then
+   # then assume input is STDIN
+   dumpfile(STDIN, start, length)
+else
+   filenames.each do |filename|
+      File.open(filename, "r") do |fileHandle|
+	 dumpfile(fileHandle, start, length)
+      end
+   end
+end
