@@ -15,6 +15,7 @@ Various simple scripts for Linux:
 * `redirect.cgi`: CGI script to allow censored URLs to be posted on Reddit and Twitter
 * `mdump`: hexadecimal file dumper
 * `cookies` : convert Firefox's cookies.sqlite format to Netscape cookies
+* `firefox-dpms` : disable screensaver when Firefox plays sounds/videos
 
 ## Ogg Vorbis scripts
 
