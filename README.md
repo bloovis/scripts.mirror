@@ -14,6 +14,7 @@ Various simple scripts for Linux:
 * `oggripalbum`: Rip a CD info a set of Ogg Vorbis files
 * `redirect.cgi`: CGI script to allow censored URLs to be posted on Reddit and Twitter
 * `mdump`: hexadecimal file dumper
+* `cookies` : convert Firefox's cookies.sqlite format to Netscape cookies
 
 ## Ogg Vorbis scripts
 
