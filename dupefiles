@@ -1,0 +1,87 @@
+#!/usr/bin/ruby
+
+require 'digest'
+
+class DupeFileFinder
+  def initialize
+    @files = {}	# list of all files, indexed by file size
+    @dupes = {} # list of duplicated files, indexed by sha1; first entry is size
+  end
+
+  def walk_dir(path)
+    #puts "Walking directory path #{path}"
+    Dir.foreach(path) do |entry|
+      next if (entry == '..' || entry == '.')
+      full_path = File.join(path, entry)
+      next if File.symlink?(full_path)
+      if File.directory?(full_path)
+        walk_dir(full_path)
+      elsif File.file?(full_path)
+        size = File.stat(full_path).size
+	#puts "File #{full_path} has size #{size}"
+        @files[size] ||= []
+	@files[size] << full_path
+	#puts "#{@files[size].length} files of size #{size}"
+      end
+    end
+  end
+
+  def compute_hash(path)
+    sha1 = Digest::SHA1.new
+    File.open(path) do|file|
+      buffer = ''
+
+      # Read the file 4096 bytes at a time
+      while not file.eof
+        file.read(4096, buffer)
+        sha1.update(buffer)
+      end
+    end
+    sha1.to_s
+  end
+
+  def check_dupes
+    @files.each do |size, filenames|
+      if filenames.length > 1
+        hashes = []
+        filenames.each do |filename|
+	  hash = compute_hash(filename)
+	  @dupes[hash] ||= [size]
+	  @dupes[hash] << filename
+        end
+      end
+    end
+  end
+
+  def sort_dupes
+    @dupes = @dupes.sort {|x, y| y[1][0] * (y[1].length - 1) <=>
+                                 x[1][0] * (x[1].length - 1) }
+  end
+
+  def print_dupes
+    @dupes.each do |entry|
+      nfiles = entry[1].length - 1
+      if nfiles > 1
+        size = entry[1][0]
+        # savings = size * (nfiles - 1)
+        # print "#{savings},#{nfiles - 1},#{size},"
+        # puts entry[1][1..-1].join(';')
+	print "#{size} (#{nfiles})\t"
+	puts entry[1][1..-1].join("\t")
+      end
+    end
+  end
+
+end
+
+ARGV.each do |arg|
+  if arg == '--help' || arg == '-h'
+    puts "usage: dupefiles <dirname>..."
+    exit 1
+  end
+  dupes = DupeFileFinder.new
+  dupes.walk_dir(arg)
+  dupes.check_dupes()
+  dupes.sort_dupes()
+  dupes.print_dupes()
+end

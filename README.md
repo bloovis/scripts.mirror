@@ -17,6 +17,7 @@ Various simple scripts for Linux:
 * `cookies` : convert Firefox's cookies.sqlite format to Netscape cookies
 * `firefox-dpms` : disable screensaver when Firefox plays sounds/videos
 * `detab` - filter to changes tabs to spaces
+* `dupefiles` - recursively search a directory for duplicate files
 
 ## Ogg Vorbis scripts
 
