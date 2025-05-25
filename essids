@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+
+# Give a list of available wi-fi networks and their signal level.
+
+if ARGV.size > 0
+  dev = ARGV[0]
+else
+  dev = `ls /sys/class/ieee80211/*/device/net/`.chomp
+end
+
+# Hash of signal strength values, indexed by ESSID.
+# Signal strength is a string like "61/70", not a numeric value.
+
+ids = {}
+
+IO.popen(['sudo', 'iwlist', dev, 'scan']) do |f|
+  essid = ""
+  quality = "unknown"
+  f.each do |line|
+    if line =~ /\s*Cell (\d+)/
+      if essid != ""
+	ids[essid] = quality
+      end
+      essid = ""
+      quality = "unknown"
+    elsif line =~ /ESSID:\"(.*)\"/
+      essid = $1
+    elsif line =~ /Quality=(\d+\/\d+)/
+      quality = $1
+    end
+  end
+end
+
+ids = ids.sort {|x,y| y[1] <=> x[1]}
+
+ids.each do |essid, quality|
+  puts "#{essid}: #{quality}"
+end

@@ -18,6 +18,7 @@ Various simple scripts for Linux:
 * `firefox-dpms` : disable screensaver when Firefox plays sounds/videos
 * `detab` - filter to changes tabs to spaces
 * `dupefiles` - recursively search a directory for duplicate files
+* `essids` - print a list of available wireless ESSIDs and their signal strength
 
 ## Ogg Vorbis scripts
 
