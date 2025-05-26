@@ -16,7 +16,8 @@ Various simple scripts for Linux:
 * `cookies` : convert Firefox's cookies.sqlite format to Netscape cookies
 * `detab` - filter to changes tabs to spaces
 * `diskusers` : print summary every ten seconds of processes using disk
-* `dupefiles` - recursively search a directory for duplicate files
+* `dupefiles` : recursively search a directory for duplicate files
+* `excuse-generator` : generate a random excuse
 * `filesbetween`: find files with modification times in a date range
 * `firefox-dpms` : disable screensaver when Firefox plays sounds/videos
 * `mdump`: hexadecimal file dumper
