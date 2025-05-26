@@ -2,27 +2,35 @@
 
 Various simple scripts for Linux:
 
-* `trackpoint` : set sensitivity, speed, drift time, and acceleration of ThinkPad TrackPoint
-* `gateway` : network gateway IP address
-* `ipaddr` : print IP address
-* `externalip` : print external IP address (as seen from outside the NAT router)
-* `diskusers` : print summary every ten seconds of processes using disk
-* `filesbetween`: find files with modification times in a date range
-* `oggalbum`: Tag a set of Ogg Vorbis files using an album description file
-* `oggmakealbum`: Create an album description file from a set of Ogg Vorbis files
-* `cdmakealbum`: Create an album description file from a CD
-* `oggripalbum`: Rip a CD info a set of Ogg Vorbis files
-* `redirect.cgi`: CGI script to allow censored URLs to be posted on Reddit and Twitter
-* `mdump`: hexadecimal file dumper
-* `cookies` : convert Firefox's cookies.sqlite format to Netscape cookies
-* `firefox-dpms` : disable screensaver when Firefox plays sounds/videos
-* `detab` - filter to changes tabs to spaces
-* `dupefiles` - recursively search a directory for duplicate files
+## Network
+
 * `essids` - print a list of available wireless ESSIDs and their signal strength
+* `externalip` : print external IP address (as seen from outside the NAT router)
+* `gateway` : print network gateway IP address
+* `ipaddr` : print IP address
+* `macaddr` - print MAC address
+* `netdev` - print network device name
+
+## Miscellaneous
+
+* `cookies` : convert Firefox's cookies.sqlite format to Netscape cookies
+* `detab` - filter to changes tabs to spaces
+* `diskusers` : print summary every ten seconds of processes using disk
+* `dupefiles` - recursively search a directory for duplicate files
+* `filesbetween`: find files with modification times in a date range
+* `firefox-dpms` : disable screensaver when Firefox plays sounds/videos
+* `mdump`: hexadecimal file dumper
+* `redirect.cgi`: CGI script to allow censored URLs to be posted on Reddit and Twitter
+* `trackpoint` : set sensitivity, speed, drift time, and acceleration of ThinkPad TrackPoint
 
 ## Ogg Vorbis scripts
 
-There are four Ruby scripts here related to tagging and ripping Ogg Vorbis files.
+There are four Ruby scripts here related to tagging and ripping Ogg Vorbis files:
+
+* `cdmakealbum`: Create an album description file from a CD
+* `oggalbum`: Tag a set of Ogg Vorbis files using an album description file
+* `oggmakealbum`: Create an album description file from a set of Ogg Vorbis files
+* `oggripalbum`: Rip a CD info a set of Ogg Vorbis files
 
 ### Tagging Ogg Vorbis files
 

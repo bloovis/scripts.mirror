@@ -1,0 +1,3 @@
+#!/bin/sh
+# Print internet-connected device name
+ip -o route get 8.8.8.8 | sed -e 's/^.* dev \([^ ]*\) .*$/\1/'
