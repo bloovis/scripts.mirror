@@ -4,12 +4,26 @@ Various simple scripts for Linux:
 
 ## Network
 
-* `essids` - print a list of available wireless ESSIDs and their signal strength
-* `externalip` : print external IP address (as seen from outside the NAT router)
-* `gateway` : print network gateway IP address
-* `ipaddr` : print IP address
-* `macaddr` - print MAC address
-* `netdev` - print network device name
+* `essids`: print a list of available wireless ESSIDs and their signal strength
+* `externalip`: print external IP address (as seen from outside the NAT router)
+* `gateway`: print network gateway IP address
+* `ipaddr`: print IP address
+* `macaddr`: print MAC address
+* `netdev`: print network device name
+
+## MATE desktop scripts
+
+In the MATE desktop environment, scripts in the `~/.config/caja/scripts` directory
+can be invoked on the desktop, or in the Caja file browser,
+by right-clicking on selected files, then clicking on Scripts, then on the particular
+script.
+
+* `Resize_images` resizes one or more images to the maximum desired dimension.
+The resized images are placed in a subdirectory named `resized_to_N`, where N
+is the maximum dimension.
+
+* `Rotate_images` rotates one or more images by the selected number of degrees
+(a multiple of 90).  The original images are replaced by the rotated images.
 
 ## Miscellaneous
 

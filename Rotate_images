@@ -1,0 +1,49 @@
+#!/bin/bash
+if [ $# -eq 0 ]; then
+	zenity --error --title="error" --text="You must select at least 1 file to process"
+	exit 1
+fi
+
+#=========================
+#       SELECT SIZE DIALOG
+# Add or remove (or resort) items from (in) the following list 
+#   to customize the sizes available and the order in which they appear.
+#   It would be nice to make this list easier to edit (make it a variable?  A file in user's home directory?)
+title="Rotate images"
+dialogtext="Select the number of degrees you to rotate the image(s)"
+degrees=`zenity --title "$title" --text="$dialogtext" --list --separator=" " --column="degrees" "90" "180" "270"`
+
+#if $? != 0, user click on cancel button, so exit
+if [ "$?" != 0 ] ; then
+	exit
+fi
+
+#user must select a target rotation value
+if [ -z "$degrees" ]; then
+	zenity --error --title="error" --text="select number of degrees"
+	exit
+fi
+
+nb_images=0;
+selection="";
+while [ $# -gt 0 ]; do
+	isimage=`file -bi "$1" | grep image | wc -l` 
+	if [ $isimage -eq 1 ]; then
+		selection[$nb_images]=$1
+		let "nb_images++"
+	fi
+	shift
+done
+
+#iterate through selected images, resize, and rename
+i=0
+(while [ $i -lt $nb_images ] ; do
+	picture=${selection[$i]}
+	let "i = i + 1"
+	echo "# Processing image $i / $nb_images $picture ..."
+	convert -rotate "$degrees" "$picture" "${picture}.${degrees}"
+	mv "${picture}.${degrees}" "$picture"
+	let "progress = i*100/nb_images"
+	echo $progress
+done) | zenity --progress --auto-close --title="Rotating images"  \
+ --text="Processing images ..." --percentage=0
