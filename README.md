@@ -6,7 +6,7 @@ original Fossil repository [here](https://www.bloovis.com/fossil/home/marka/foss
 To clone this repository:
 
 ```
-fossil clone https://chiselapp.com/user/bloovis/repository/scripts scripts.fossil
+fossil clone https://www.bloovis.com/fossil/home/marka/fossils/scripts
 ```
 
 Various simple scripts for Linux:
