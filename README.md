@@ -3,6 +3,12 @@
 (*Note*: If you are reading this on Github, you can find the
 original Fossil repository [here](https://www.bloovis.com/fossil/home/marka/fossils/scripts/home)).
 
+To clone this repository:
+
+```
+fossil clone https://chiselapp.com/user/bloovis/repository/scripts scripts.fossil
+```
+
 Various simple scripts for Linux:
 
 ## Network
