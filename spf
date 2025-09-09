@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+# Extract network addresses from a domain's spf records,
+# and print in a form suitable for the Postfix mynetworks
+# configuration option.  Recursively print any includes.
+# Also print comments for each domain found; you will
+# need to delete those before using the output in
+# Postfix's main.cf.
+
+def printspf(domain)
+  puts "# #{domain}"
+  open("|dig #{domain} txt") do |f|
+    f.each do |line|
+      line.chomp!
+      #puts line
+      if line =~ /v=spf1(.*)/
+	$1.split.each do |a|
+	  if a =~ /ip4:(.*)/
+	    puts "  #{$1}"
+	  elsif a =~ /ip6:(.*)\/(.*)/
+	    puts "  [#{$1}]/#{$2}"
+	  elsif a =~ /ip6:(.*)/
+	    puts "  [#{$1}]"
+	  elsif a =~ /include:(.*)/
+	    printspf $1
+	  end
+	end
+      end
+    end
+  end
+end
+
+ARGV.each do |arg|
+  printspf(arg)
+end
+

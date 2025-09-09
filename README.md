@@ -19,6 +19,7 @@ Various simple scripts for Linux:
 * `ipaddr`: print IP address
 * `macaddr`: print MAC address
 * `netdev`: print network device name
+* `spf`: print IP addresses from SPF records for a given domain
 
 ## MATE desktop scripts
 
