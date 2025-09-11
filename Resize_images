@@ -83,7 +83,10 @@ i=0
 	picture=${selection[$i]}
 	let "i = i + 1"
 	echo "# Processing image $i / $nb_images $picture ..."
-	convert -quality 80 -resize $resizearg "$picture" $imgsizedir/"$picture"
+	dirname=$(dirname "$picture")
+	basename=$(basename "$picture")
+	echo convert -quality 80 -resize $resizearg "$picture" "$dirname"/$imgsizedir/"$basename"
+	convert -quality 80 -resize $resizearg "$picture" "$dirname"/$imgsizedir/"$basename"
 	let "progress = i*100/nb_images"
 	echo $progress
 done) | zenity --progress --auto-close --title="Scaling images"  \
