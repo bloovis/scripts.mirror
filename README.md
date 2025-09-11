@@ -66,7 +66,7 @@ qtpaths --locate-dirs GenericDataLocation kio/servicemenus
 ```
 
 Now you should be able to use these scripts from Dolphin, the KDE file browser.
-Select one more more JPG or PNG images, then right-click over, move the cursor
+Select one more more JPG or PNG images, then right-click over them, move the cursor
 over the `Actions` menu option, and a second menu should pop up, showing `Resize Images`
 and `Rotate Images`.
 
