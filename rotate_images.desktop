@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Resize Images
+Type=Service
+MimeType=image/png;image/jpeg;
+Actions=RotateImages;
+
+[Desktop Action RotateImages]
+Name=Rotate Images
+Icon=/usr/share/icons/breeze/mimetypes/16@2x/image-jpeg.svg
+Exec=/usr/local/bin/Rotate_images %U

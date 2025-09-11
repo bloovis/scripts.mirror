@@ -35,6 +35,41 @@ is the maximum dimension.
 * `Rotate_images` rotates one or more images by the selected number of degrees
 (a multiple of 90).  The original images are replaced by the rotated images.
 
+## KDE desktop scripts
+
+The scripts `Resize_images` and `Rotate_images`, described above,
+can also be used in the KDE desktop environment, but the process
+is a little more complicated.
+
+First, copy the scripts `Resize_images` and `Rotate_images` to some place in your
+PATH, say `/usr/local/bin`:
+
+```bash
+sudo cp Resize_images Rotate_images /usr/local/bin
+```
+
+Then copy the two desktop files `resize_images.desktop` and `rotate_images.desktop`
+(found in this repository) to the directory `~/.local/share/kio/servicemenus`:
+
+```bash
+mkdir -p ~/.local/share/kio/servicemenus
+cp resize_images.desktop rotate_images.desktop ~/.local/share/kio/servicemenus
+```
+
+If you copied the scripts to a directory other than `/usr/local/bin`, you
+will need to edit the `.desktop` files and change the `Exec` lines.
+
+Verify that `~/.local/share/kio/servicemenus` is in the servicemenus path using this command:
+
+```bash
+qtpaths --locate-dirs GenericDataLocation kio/servicemenus
+```
+
+Now you should be able to use these scripts from Dolphin, the KDE file browser.
+Select one more more JPG or PNG images, then right-click over, move the cursor
+over the `Actions` menu option, and a second menu should pop up, showing `Resize Images`
+and `Rotate Images`.
+
 ## Miscellaneous
 
 * `cookies` : convert Firefox's cookies.sqlite format to Netscape cookies
