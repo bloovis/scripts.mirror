@@ -79,6 +79,7 @@ and `Rotate Images`.
 * `excuse-generator` : generate a random excuse
 * `filesbetween`: find files with modification times in a date range
 * `firefox-dpms` : disable screensaver when Firefox plays sounds/videos
+* `get-crx`: download a Google Chrome (Brave) extension CRX file
 * `mdump`: hexadecimal file dumper
 * `redirect.cgi`: CGI script to allow censored URLs to be posted on Reddit and Twitter
 * `trackpoint` : set sensitivity, speed, drift time, and acceleration of ThinkPad TrackPoint

@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Download a Chrome extension CRX file, given the extension's
+# URL in the Google Chrome Web Store. This is based on the information here:
+# https://ungoogled-software.github.io/ungoogled-chromium-wiki/faq#can-i-install-extensions-or-themes-from-the-chrome-webstore
+
+# set -x
+
+if [ -z "$1" ] ; then
+  echo "usage: get-crx <URL of extension in Chrome Web Store>"
+  echo "This script downloads a Chrome extension CRX file, which is useful when the"
+  echo "browser says Download Interrupted when you try to install the extension"
+  exit 1
+fi
+url="$1"
+id=`echo "$url" | sed -E -e "s#.*/detail/[^/]+/([^?]+)\??.*#\1#"`
+version=140.0
+wget -O $id.crx "https://clients2.google.com/service/update2/crx?response=redirect&acceptformat=crx2,crx3&prodversion=${version}&x=id%3D${id}%26installsource%3Dondemand%26uc"
+echo Extension saved to $id.crx
