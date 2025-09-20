@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Invoke a terminal-based editor in a new terminal window.
+# This is useful for invoking an external non-GUI editor from
+# a GUI application such as Joplin or a browser.
+
+# Set the path to the editor.  We need this because running a script
+# from a browser will not read .bashrc, where EDITOR might be defined.
+EDITOR=/usr/local/bin/pe
+
+# Helper function.
+available() { command -v "${1:?}" >/dev/null; }
+
+# Add a clause for your desktop environment as needed.
+if available mate-terminal ; then
+  mate-terminal --disable-factory -e "$EDITOR '$@'"
+elif available konsole ; then
+  konsole -e "$EDITOR '$@'"
+elif available xterm ; then
+  xterm -fa 'DejaVu Sans Mono:size=9' -bg cornsilk1 -fg black -geometry 110x60 -e $EDITOR "$@"
+elif available st ; then
+  st -e $EDITOR "$@"
+else
+  zenity --error --title="error" --text="Could not find an appropriate terminal program"
+  exit 1
+fi

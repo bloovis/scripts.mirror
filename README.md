@@ -82,6 +82,7 @@ and `Rotate Images`.
 * `get-crx`: download a Google Chrome (Brave) extension CRX file
 * `mdump`: hexadecimal file dumper
 * `redirect.cgi`: CGI script to allow censored URLs to be posted on Reddit and Twitter
+* `term-edit`: invoke a terminal-based editor from a GUI application
 * `trackpoint` : set sensitivity, speed, drift time, and acceleration of ThinkPad TrackPoint
 
 ## Ogg Vorbis scripts
