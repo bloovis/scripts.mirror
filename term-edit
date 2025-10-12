@@ -14,6 +14,8 @@ available() { command -v "${1:?}" >/dev/null; }
 # Add a clause for your desktop environment as needed.
 if available mate-terminal ; then
   mate-terminal --disable-factory -e "$EDITOR '$@'"
+elif available alacritty ; then
+  alacritty -e $EDITOR "$1"
 elif available konsole ; then
   konsole -e "$EDITOR '$@'"
 elif available xterm ; then
