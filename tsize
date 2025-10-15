@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo `tput lines` rows, `tput cols` columns

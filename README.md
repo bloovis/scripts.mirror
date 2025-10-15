@@ -84,6 +84,7 @@ and `Rotate Images`.
 * `redirect.cgi`: CGI script to allow censored URLs to be posted on Reddit and Twitter
 * `term-edit`: invoke a terminal-based editor from a GUI application
 * `trackpoint` : set sensitivity, speed, drift time, and acceleration of ThinkPad TrackPoint
+* `tsize` : print terminal rows and columns
 
 ## Ogg Vorbis scripts
 
