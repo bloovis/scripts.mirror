@@ -72,6 +72,7 @@ and `Rotate Images`.
 
 ## Miscellaneous
 
+* `bat` : print status of all batteries
 * `cookies` : convert Firefox's cookies.sqlite format to Netscape cookies
 * `detab` - filter to changes tabs to spaces
 * `diskusers` : print summary every ten seconds of processes using disk
