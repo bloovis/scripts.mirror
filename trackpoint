@@ -1,10 +1,7 @@
 #!/bin/sh
 
-if [ `id -u` != "0" ] ; then 
-  echo "Rerunning $0 with sudo..."
-  sudo $0
-  exit $?
-fi
+set -x
+
 x=`find /sys/devices -name name | xargs grep -Fl TrackPoint | sed 's/\/input\/input[0-9]*\/name$//'`
 
 sensitivity=`cat $x/sensitivity`
@@ -12,7 +9,7 @@ VALUE=`zenity --scale --text="Trackpoint sensitivity" --value=$sensitivity --max
 case $? in
   0)
     echo "Setting sensitivity to $VALUE"
-    echo -n $VALUE > $x/sensitivity;;
+    echo -n $VALUE | sudo tee $x/sensitivity >/dev/null ;;
   1)
     echo "No sensitivity value selected.";;
   -1)
@@ -24,7 +21,7 @@ VALUE=`zenity --scale --text="Trackpoint speed" --value=$speed --max-value=255`
 case $? in
   0)
     echo "Setting speed to $VALUE"
-    echo -n $VALUE > $x/speed;;
+    echo -n $VALUE | sudo tee $x/speed >/dev/null ;;
   1)
     echo "No speed value selected.";;
   -1)
@@ -36,7 +33,7 @@ VALUE=`zenity --scale --text="Trackpoint drift time (in tenths of a second)" --v
 case $? in
   0)
     echo "Setting drift_time to $VALUE"
-    echo -n $VALUE > $x/drift_time;;
+    echo -n $VALUE | sudo tee $x/drift_time >/dev/null ;;
   1)
     echo "No drift time value selected.";;
   -1)
