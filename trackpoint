@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -x
+# set -x
 
 x=`find /sys/devices -name name | xargs grep -Fl TrackPoint | sed 's/\/input\/input[0-9]*\/name$//'`
 

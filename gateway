@@ -1,3 +1,4 @@
 #!/bin/sh
 
-ip route | sed -n -e "s/default via \([0-9.]\+\).*/\1/p"
+#ip route | sed -n -e "s/default via \([0-9.]\+\).*/\1/p"
+ip --oneline route get 1.1.1.1 | awk '{print $3}'
