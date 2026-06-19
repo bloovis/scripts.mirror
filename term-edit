@@ -11,17 +11,22 @@ EDITOR=/usr/local/bin/pe
 # Helper function.
 available() { command -v "${1:?}" >/dev/null; }
 
+# Filter out file://
+fname=`echo "$1" | sed -E 's#^file://##'`
+
 # Add a clause for your desktop environment as needed.
 if available mate-terminal ; then
-  mate-terminal --disable-factory -e "$EDITOR '$@'"
+  mate-terminal --disable-factory -e "$EDITOR '$fname'"
+elif available ghostty ; then
+  ghostty +new-window -e $EDITOR "$fname"
 elif available alacritty ; then
-  alacritty -e $EDITOR "$1"
+  alacritty -e $EDITOR "$fname"
 elif available konsole ; then
-  konsole -e "$EDITOR '$@'"
+  konsole -e "$EDITOR '$fname'"
 elif available xterm ; then
-  xterm -fa 'DejaVu Sans Mono:size=9' -bg cornsilk1 -fg black -geometry 110x60 -e $EDITOR "$@"
+  xterm -fa 'DejaVu Sans Mono:size=9' -bg cornsilk1 -fg black -geometry 110x60 -e $EDITOR "$fname"
 elif available st ; then
-  st -e $EDITOR "$@"
+  st -e $EDITOR "$fname"
 else
   zenity --error --title="error" --text="Could not find an appropriate terminal program"
   exit 1
